@@ -57,13 +57,14 @@ def parseHTML(url=''):
     html = website.read()
 
     #use re.findall to get all the links
-    links = re.findall('"((http)s?://.*?)"', html)
+    #links = re.findall('"((http)s?://.*?)"', html)
+    soup = BeautifulSoup(html)
+    links = soup.select("a[href$=.mp4]")
     vdolist =[];
     for item in links:
+        #print item
         #print item[0]
-        if item[0].find('mp4') != -1:
-            #print item[0]
-            vdolist.append(item[0])
+        vdolist.append(item.get('href'))
 
     return vdolist        
 ###########
@@ -86,8 +87,20 @@ def getLinks(url):
 mode = args.get('mode', None)
 print 'mode='
 print  mode
-if mode is None:
-    vdoObjects = getLinks('http://m.perfectgirls.net')
+if mode is None or mode[0] == 'next':
+    
+    argsNext = args.get('nextval', None)
+    print argsNext    
+    if argsNext is not None:
+       nextval = int(argsNext[0])+1
+       url = 'http://m.perfectgirls.net/'+str(nextval)
+    else:
+       nextval = 1
+       url = 'http://m.perfectgirls.net'
+    print 'nextval', nextval 
+
+    print 'url =', url
+    vdoObjects = getLinks(url)
     #print(vdoObjects)
     for page in vdoObjects:
         #url = build_url({'mode' :'page', 'data' : page.get('href')})
@@ -99,6 +112,11 @@ if mode is None:
         xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li,isFolder=True)
 
 
+    urlnext = build_url({'mode' :'next', 'nextval' : nextval})
+    li = xbmcgui.ListItem('Next List', iconImage='DefaultVideo.png')
+    li.setInfo( type="Video", infoLabels={ "Title": title } )
+    li.setProperty('isFolder','true')
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=urlnext, listitem=li,isFolder=True)
     xbmcplugin.endOfDirectory(addon_handle)
 
 

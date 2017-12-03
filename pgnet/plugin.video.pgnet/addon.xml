@@ -11,7 +11,7 @@
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
 		<summary lang="en">pgnet</summary>
-		<description lang="en">This plugin list all the shows on yupptv. It also tries to bring many over the top content providers to RPI starting from yupptv.</description>
+		<description lang="en">This plugin list all the shows on pgnet. It also tries to bring many over the top content providers.</description>
 		<license>GNU General Public License, v2</license>
 		<language/>
 	</extension>
