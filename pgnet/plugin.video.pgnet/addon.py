@@ -77,7 +77,7 @@ def getLinks(url):
     for link in soup.select( '.list__item_link a'):
         #print(link.get('href'))
         #print(link.find('img').get('src'))
-        links.append({'href': str(url) + link.get('href'), 'img':link.find('img').get('src')})
+        links.append({'href': domainurl + link.get('href'), 'img':link.find('img').get('src')})
     #print(links)
     return links;
 
@@ -85,6 +85,7 @@ def getLinks(url):
 # addon kicks in
 
 mode = args.get('mode', None)
+domainurl = 'http://m.perfectgirls.net';
 print 'mode='
 print  mode
 if mode is None or mode[0] == 'next':
@@ -104,6 +105,7 @@ if mode is None or mode[0] == 'next':
     #print(vdoObjects)
     for page in vdoObjects:
         #url = build_url({'mode' :'page', 'data' : page.get('href')})
+        print('href=',page.get('href'))
         url = build_url({'mode' :'page', 'data' : page.get('href')})
         title = page.get('href').split('/')[-1]
         li = xbmcgui.ListItem(title, iconImage=page.get('img'))
@@ -123,6 +125,7 @@ if mode is None or mode[0] == 'next':
 elif mode[0] == 'page':
     print 'inside page'
     video_play_url = args['data'][0] #"http://m.perfectgirls.net/gal/497235/Astonishing_teacher_is_always_in_the_mood_to_fuck_her_students__if_no_one_is_watching_them"
+    print('video_play_url=',video_play_url);
     vlist = parseHTML(video_play_url)
     print (vlist)
     for vdourl in vlist:
