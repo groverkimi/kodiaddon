@@ -68,16 +68,29 @@ def parseHTML(url=''):
 
     return vdolist        
 ###########
-def getLinks(url):
+def getLinks(url,selector):
     website = urllib2.urlopen(url)
     #read html code
     html = website.read()
     soup = BeautifulSoup(html)
     links =[]
-    for link in soup.select( '.list__item_link a'):
+    for link in soup.select( selector):
         #print(link.get('href'))
         #print(link.find('img').get('src'))
         links.append({'href': domainurl + link.get('href'), 'img':link.find('img').get('src')})
+    #print(links)
+    return links;
+
+def getCatLinks(url,selector):
+    website = urllib2.urlopen(url)
+    #read html code
+    html = website.read()
+    soup = BeautifulSoup(html)
+    links =[]
+    for link in soup.select( selector):
+        print(link)
+        #print(link.find('img').get('src'))
+        links.append({'href': domainurl + link.get('href'),'title':link.text})
     #print(links)
     return links;
 
@@ -101,11 +114,19 @@ if mode is None or mode[0] == 'next':
     print 'nextval', nextval 
 
     print 'url =', url
-    vdoObjects = getLinks(url)
+    vdoObjects = getLinks(url, '.list__item_link a')
     #print(vdoObjects)
+
+    #category menu
+    urlcategory = build_url({'mode' :'category'})
+    licat = xbmcgui.ListItem('Categories', iconImage='DefaultVideo.png')
+    licat.setInfo( type="Video", infoLabels={ "Title": 'Categories' } )
+    licat.setProperty('isFolder','true')
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=urlcategory, listitem=licat,isFolder=True)
+
     for page in vdoObjects:
         #url = build_url({'mode' :'page', 'data' : page.get('href')})
-        print('href=',page.get('href'))
+        #print('href=',page.get('href'))
         url = build_url({'mode' :'page', 'data' : page.get('href')})
         title = page.get('href').split('/')[-1]
         li = xbmcgui.ListItem(title, iconImage=page.get('img'))
@@ -119,6 +140,8 @@ if mode is None or mode[0] == 'next':
     li.setInfo( type="Video", infoLabels={ "Title": title } )
     li.setProperty('isFolder','true')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=urlnext, listitem=li,isFolder=True)
+    
+
     xbmcplugin.endOfDirectory(addon_handle)
 
 
@@ -139,6 +162,24 @@ elif mode[0] == 'page':
 
 
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+elif mode[0] == 'category':
+    print 'category'
+    catLinks = getCatLinks(domainurl+'/categories', 'a.category__item_link') 
+    print(catLinks)
+    
+    for link in catLinks:
+        urlcatlink = build_url({'mode' :'next', 'data' : link.get('href'),'nextval':1})
+        title = link.get('title')
+        li = xbmcgui.ListItem(title, iconImage='DefaultVideo.png')
+        li.setInfo( type="Video", infoLabels={ "Title": title } )
+        li.setProperty('isFolder','true')
+        xbmcplugin.addDirectoryItem(handle=addon_handle, url=urlcatlink, listitem=li,isFolder=True)
+    
+
+    xbmcplugin.endOfDirectory(addon_handle)
+
+   
 
 
 elif mode[0] == 'play':
