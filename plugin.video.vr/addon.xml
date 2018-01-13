@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.vr" name="VR Videos" provider-name="grover" version="1.0.0">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<!-- <import addon="script.module.urlresolver" version="3.0.0"/> -->
+		<import addon="script.module.beautifulsoup4" version="4.3.2"/>
+		<import addon="script.module.simple.downloader" version="1.9.5"/>
+	</requires>
+	<extension library="addon.py" point="xbmc.python.pluginsource">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">VR Videos</summary>
+		<description lang="en">This plugin search and list Adult VR videos.</description>
+		<license>GNU General Public License, v2</license>
+		<language/>
+	</extension>
+</addon>

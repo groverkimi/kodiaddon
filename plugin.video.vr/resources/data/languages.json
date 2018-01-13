@@ -1,0 +1,57 @@
+[
+{
+"LangId":"HIN",
+"LangName":"Hindi TV Channels",
+"FullName":"Hindi"
+},
+{
+"LangId":"TEL",
+"LangName":"Telugu TV Channels",
+"FullName":"Telugu"
+},
+{
+"LangId":"TAM",
+"LangName":"Tamil TV Channels",
+"FullName":"Tamil"
+},
+{
+"LangId":"KAN",
+"LangName":"Kannada TV Channels",
+"FullName":"Kannada"
+},
+{
+"LangId":"PUN",
+"LangName":"Punjabi TV Channels",
+"FullName":"Punjabi"
+},
+{
+"LangId":"MAL",
+"LangName":"Malayalam TV Channels",
+"FullName":"Malayalam"
+},
+{
+"LangId":"MAR",
+"LangName":"Marathi TV Channels",
+"FullName":"Marathi"
+},
+{
+"LangId":"BEN",
+"LangName":"Bengali TV Channels",
+"FullName":"Bengali"
+},
+{
+"LangId":"ORI",
+"LangName":"Oriya TV Channels",
+"FullName":"Oriya"
+},
+{
+"LangId":"GUJ",
+"LangName":"Gujarati TV Channels",
+"FullName":"Gujarati"
+},
+{
+"LangId":"ENG",
+"LangName":"English TV Channels",
+"FullName":"English"
+}
+]
